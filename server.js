@@ -11,9 +11,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const uri = 'mongodb://localhost:27017/test?poolSize=4';
-mongoose.createConnection(uri);
-const Blog = require('./models/blogSchema');
-console.log('Blog', Blog)
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology:true});
+// mongoose.createConnection(uri, {useUnifiedTopology: true});
+
+const Tank = require('./models/tankModel');
 dotenv.config();
 
 const DEFAULT_PORT = 8888;
