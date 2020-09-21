@@ -1,4 +1,5 @@
 const http = require('http');
+const dotenv = require('dotenv');
 const eetase = require('eetase');
 const socketClusterServer = require('socketcluster-server');
 const Action = require('socketcluster-server/action');
@@ -7,11 +8,19 @@ const uuid = require('uuid');
 const packageVersion = require('./package.json').version;
 const url = require('url');
 const express = require('express');
+const mongoose = require('mongoose');
+
+const uri = 'mongodb://localhost:27017/test?poolSize=4';
+mongoose.createConnection(uri);
+const Blog = require('./models/blogSchema');
+console.log('Blog', Blog)
+dotenv.config();
 
 const DEFAULT_PORT = 8888;
 const PORT = Number(process.env.SCC_BROKER_SERVER_PORT) || DEFAULT_PORT;
 const SCC_INSTANCE_ID = uuid.v4();
 const SCC_STATE_SERVER_HOST = process.env.SCC_STATE_SERVER_HOST;
+console.log('SCC_STATE_SERVER_HOST', SCC_STATE_SERVER_HOST)
 const SCC_STATE_SERVER_PORT = Number(process.env.SCC_STATE_SERVER_PORT) || 7777;
 const SCC_INSTANCE_IP = process.env.SCC_INSTANCE_IP || null;
 const SCC_INSTANCE_IP_FAMILY = process.env.SCC_INSTANCE_IP_FAMILY || 'IPv4';
